@@ -93,8 +93,11 @@
                     });
 
                     this.$http.get('/api/vet').then(result => {
-                        this.vetsList = result.data.map((item) => ({ value: item.id, text: item.name}));
-                        console.log(result);
+                        this.vetsList = result.data.map((item) => ({ value: item.id, text: item.name }));
+                        if (this.vetsList.Length != 0)
+                            this.form.vet = this.vetsList[0].value;
+                        //console.log(this.vetsList);
+                        //console.log(this.form.vet);
                     });
 
                 } catch (error) {
