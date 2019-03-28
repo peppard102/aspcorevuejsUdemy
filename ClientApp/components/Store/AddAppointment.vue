@@ -21,10 +21,17 @@
                               placeholder="Enter name"></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-3" label="Food:" label-for="input-3">
+            <b-form-group id="input-group-3" label="Select a pet:" label-for="input-3">
                 <b-form-select class="form-control" id="input-3"
-                               v-model="form.food"
-                               :options="foods"
+                               v-model="form.pet"
+                               :options="this.petsList"
+                               required></b-form-select>
+            </b-form-group>
+
+            <b-form-group id="input-group-3" label="Select a vet:" label-for="input-3">
+                <b-form-select class="form-control" id="input-3"
+                               v-model="form.vet"
+                               :options="this.vetsList"
                                required></b-form-select>
             </b-form-group>
 
@@ -48,12 +55,15 @@
                 form: {
                     email: '',
                     name: '',
-                    food: null,
+                    pet: null,
+                    vet: null,
                     checked: []
                 },
                 foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
                 show: true,
                 msg: 'Add Pet',
+                petsList: [],
+                vetsList: []
             }
         },
         methods: {
@@ -66,14 +76,34 @@
                 // Reset our form values
                 this.form.email = ''
                 this.form.name = ''
-                this.form.food = null
+                this.form.pet = null
+                this.form.vet = null
                 this.form.checked = []
                 // Trick to reset/clear native browser form validation state
                 this.show = false
                 this.$nextTick(() => {
                     this.show = true
                 })
+            },
+            LoadData: function () {
+                try {
+                    this.$http.get('/api/pet').then(result => {
+                        this.petsList = result.data.map((item) => ({ value: item.id, text: item.name }));
+                        console.log(result);
+                    });
+
+                    this.$http.get('/api/vet').then(result => {
+                        this.vetsList = result.data.map((item) => ({ value: item.id, text: item.name}));
+                        console.log(result);
+                    });
+
+                } catch (error) {
+                    console.log(error)
+                }
             }
+        },
+        created() {
+            this.LoadData();
         }
     }
 </script>
