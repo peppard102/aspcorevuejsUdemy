@@ -18,7 +18,9 @@ import Vue from 'vue'
 import CounterExample from './counter-example'
 import FetchData from './fetch-data'
 import HomePage from './home-page'
-import NavMenu from './nav-menu'
+    import NavMenu from './nav-menu'
+    import 'bootstrap/dist/css/bootstrap.css'
+    import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.component('counter-example', CounterExample);
 Vue.component('fetch-data', FetchData);

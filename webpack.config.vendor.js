@@ -1,4 +1,4 @@
-﻿const path = require('path');
+const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
@@ -14,11 +14,11 @@ module.exports = (env) => {
         module: {
             rules: [
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' },
-                { test: /\.css(\?|$)/, use: extractCSS.extract(['css-loader']) }
+                { test: /\.css(\?|$)/, use: extractCSS.extract(['vue-style-loader', 'css-loader']) }
             ]
         },
         entry: {
-            vendor: ['bootstrap', 'bootstrap/dist/css/bootstrap.css', 'event-source-polyfill', 'vue', 'vuex', 'axios', 'vue-router', 'jquery'],
+            vendor: ['bootstrap-vue', 'bootstrap/dist/css/bootstrap-vue.css', 'event-source-polyfill', 'vue', 'vuex', 'axios', 'vue-router', 'jquery'],
         },
         output: {
             path: path.join(__dirname, 'wwwroot', 'dist'),

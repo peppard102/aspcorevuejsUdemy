@@ -1,34 +1,39 @@
 <template>
     <div>
-        <h1>{{msg}}</h1>
-        <div class="form-horizontal">
-            <fieldset>
+        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+            <b-form-group id="exampleInputGroup1"
+                          label="Email address:"
+                          label-for="exampleInput1"
+                          description="We'll never share your email with anyone else.">
+                <b-form-input id="exampleInput1"
+                              type="email"
+                              v-model="form.email"
+                              required
+                              placeholder="Enter email" />
+            </b-form-group>
 
-                <!-- Form Name -->
-                <legend>Add New Pet</legend>
+            <b-form-group id="exampleInputGroup2" label="Your Name:" label-for="exampleInput2">
+                <b-form-input id="exampleInput2"
+                              type="text"
+                              v-model="form.name"
+                              required
+                              placeholder="Enter name" />
+            </b-form-group>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Name</label>
-                    <div class="col-md-4">
-                        <input v-model="Item.Name" placeholder="Mouse, Keyborad, etc." class="form-control input-md" type="text">
+            <b-form-group id="exampleInputGroup3" label="Food:" label-for="exampleInput3">
+                <b-form-select id="exampleInput3" :options="foods" required v-model="form.food" />
+            </b-form-group>
 
-                    </div>
-                </div>
+            <b-form-group id="exampleGroup4">
+                <b-form-checkbox-group v-model="form.checked" id="exampleChecks">
+                    <b-form-checkbox value="me">Check me out</b-form-checkbox>
+                    <b-form-checkbox value="that">Check that out</b-form-checkbox>
+                </b-form-checkbox-group>
+            </b-form-group>
 
-                <!-- Button -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for=""></label>
-                    <div class="col-md-4">
-                        <button @click="AddData()" class="btn btn-primary">Add</button>
-                    </div>
-                </div>
-
-
-            </fieldset>
-        </div>
-
-
+            <b-button type="submit" variant="primary">Submit</b-button>
+            <b-button type="reset" variant="danger">Reset</b-button>
+        </b-form>
     </div>
 </template>
 
@@ -36,27 +41,34 @@
     export default {
         data() {
             return {
-                msg: 'Add Pet',
-                Item: {}
+                form: {
+                    email: '',
+                    name: '',
+                    food: null,
+                    checked: []
+                },
+                foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+                show: true
             }
         },
         methods: {
-            AddData: function () {
-                try {
-                    this.$http.post('/api/Pet', this.Item).then(result => {
-                        console.log(result);
-                        alert(`Pet ${result.data.name} has been added successfully`);
-                        this.Item = {};
-                    });
-                    
-                } catch (error) {
-                    console.log(error)
-                }
+            onSubmit(evt) {
+                evt.preventDefault()
+                alert(JSON.stringify(this.form))
+            },
+            onReset(evt) {
+                evt.preventDefault()
+                /* Reset our form values */
+                this.form.email = ''
+                this.form.name = ''
+                this.form.food = null
+                this.form.checked = []
+                /* Trick to reset/clear native browser form validation state */
+                this.show = false
+                this.$nextTick(() => {
+                    this.show = true
+                })
             }
         }
     }
 </script>
-
-<style>
-
-</style>
