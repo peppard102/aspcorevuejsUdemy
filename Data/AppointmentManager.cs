@@ -4,6 +4,7 @@ using System.Linq;
 using Dapper.Contrib.Extensions;
 using Microsoft.Extensions.Configuration;
 using Vue2Spa.Models;
+using System;
 
 namespace Vue2Spa.Data
 {
@@ -27,6 +28,14 @@ namespace Vue2Spa.Data
             using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 return connection.GetAll<Appointment>().ToList();
+            }
+        }
+
+        public List<AppointmentLengthOptions> GetAllAppointmentLengthOptions()
+        {
+            using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection")))
+            {
+                return connection.GetAll<AppointmentLengthOptions>().ToList();
             }
         }
 

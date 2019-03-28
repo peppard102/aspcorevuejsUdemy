@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Vue2Spa.Data;
 using Vue2Spa.Models;
+using System;
 
 namespace Vue2Spa.Controllers
 {
@@ -20,6 +21,13 @@ namespace Vue2Spa.Controllers
         public List<Appointment> GetAllAppointments()
         {
             return manager.GetAll();
+        }
+
+        [HttpGet]
+        [Route("lengthOptions")]
+        public List<AppointmentLengthOptions> GetAllAppointmentLengthOptions()
+        {
+            return manager.GetAllAppointmentLengthOptions();
         }
 
         // GET: api/Appointment/5
