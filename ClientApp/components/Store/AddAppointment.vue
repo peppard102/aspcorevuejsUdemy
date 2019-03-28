@@ -89,6 +89,9 @@
                 try {
                     this.$http.get('/api/pet').then(result => {
                         this.petsList = result.data.map((item) => ({ value: item.id, text: item.name }));
+
+                        if (this.petsList.Length != 0)
+                            this.form.pet = this.petsList[0].value;
                         console.log(result);
                     });
 
