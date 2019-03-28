@@ -6,6 +6,12 @@ import { store } from './store'
 import { sync } from 'vuex-router-sync'
 import { ChangeMyColor } from "./shared/directive/color-directive"
 import App from 'components/app-root'
+import BootstrapVue from 'bootstrap-vue'
+
+Vue.use(BootstrapVue)
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.prototype.$http = axios;
 Vue.directive('change-color', ChangeMyColor);
