@@ -21,7 +21,7 @@
                               placeholder="Enter name"></b-form-input>
             </b-form-group>-->
             <b-form-group label="Select a Date:" label-for="apptDate">
-                <Datepicker id="apptDate"></Datepicker>
+                <Datepicker id="apptDate" :disabledDates="disabledDates"></Datepicker>
             </b-form-group>
             <b-form-group id="input-group-3" label="Select a pet:" label-for="input-3">
                 <b-form-select class="form-control" id="input-3"
@@ -72,7 +72,11 @@
                 show: true,
                 petsList: [],
                 vetsList: [],
-                apptLengthOptions: []
+                apptLengthOptions: [],
+                disabledDates: {
+                    to: new Date(), // Disable all dates up to specific date
+                    days: [6, 0]
+                }
             }
         },
         methods: {
