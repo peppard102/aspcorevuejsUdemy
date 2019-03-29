@@ -6,6 +6,7 @@ import { store } from './store'
 import { sync } from 'vuex-router-sync'
 import { ChangeMyColor } from "./shared/directive/color-directive"
 import App from 'components/app-root'
+import Datepicker from 'vuejs-datepicker';
 import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
@@ -26,5 +27,6 @@ const app = new Vue({
 export {
     app,
     router,
-    store
+    store,
+    Datepicker
 }

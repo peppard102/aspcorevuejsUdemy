@@ -20,7 +20,9 @@
                               required
                               placeholder="Enter name"></b-form-input>
             </b-form-group>-->
-
+            <b-form-group label="Select a Date:" label-for="apptDate">
+                <Datepicker id="apptDate"></Datepicker>
+            </b-form-group>
             <b-form-group id="input-group-3" label="Select a pet:" label-for="input-3">
                 <b-form-select class="form-control" id="input-3"
                                v-model="form.pet"
@@ -55,7 +57,11 @@
 </template>
 
 <script>
+    import Datepicker from 'vuejs-datepicker';
     export default {
+        components: {
+            Datepicker
+        },
         data() {
             return {
                 form: {
