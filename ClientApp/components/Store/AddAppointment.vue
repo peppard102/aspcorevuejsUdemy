@@ -5,8 +5,9 @@
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
 
             <b-form-group label="Select a Date:" label-for="apptDate">
-                <Datepicker id="apptDate" :value="form.date" :disabledDates="disabledDates"></Datepicker>
+                <Datepicker id="apptDate" :value="form.date" :disabledDates="disabledDates" @change="onChange"></Datepicker>
             </b-form-group>
+
             <b-form-group id="input-group-3" label="Select a pet:" label-for="input-3">
                 <b-form-select class="form-control" id="input-3"
                                v-model="form.pet"
@@ -18,14 +19,18 @@
                 <b-form-select class="form-control" id="input-3"
                                v-model="form.vet"
                                :options="this.vetsList"
-                               required></b-form-select>
+                               required
+                               @change="onChange"></b-form-select>
             </b-form-group>
+
             <b-form-group id="input-group-3" label="Select an appointment length:" label-for="input-3">
                 <b-form-select class="form-control" id="input-3"
                                v-model="form.apptLength"
                                :options="this.apptLengthOptions"
-                               required></b-form-select>
+                               required
+                               @change="onChange"></b-form-select>
             </b-form-group>
+
             <b-form-group id="input-group-3" label="Select a time:" label-for="input-3">
                 <b-form-select class="form-control" id="input-3"
                                v-model="form.apptTime"
@@ -70,7 +75,16 @@
         methods: {
             onSubmit(evt) {
                 evt.preventDefault()
-                alert(JSON.stringify(this.form))
+                //alert(JSON.stringify(this.form))
+                //axios.post('/api/appointment', { PetId: self.form.pet, VetId: self.form.vet, StartTime: self.form.date, lengthOfAppt: self.form.apptLength })
+                //    .then(result => {
+                //        console.log(result);
+
+                //        self.apptTimeOptions = result.data;
+
+                //        if (self.apptTimeOptions.Length != 0)
+                //            self.form.apptTime = self.apptTimeOptions[0];
+                //    })
             },
             onReset(evt) {
                 evt.preventDefault()
@@ -83,6 +97,18 @@
                 this.$nextTick(() => {
                     this.show = true
                 })
+            },
+            onChange(evt) {
+                let self = this;
+                axios.post('/api/appointment/timeOptions', { VetId: self.form.vet, Date: self.form.date, lengthOfAppt: self.form.apptLength })
+                    .then(result => {
+                        console.log(result);
+
+                        self.apptTimeOptions = result.data;
+
+                        if (self.apptTimeOptions.Length != 0)
+                            self.form.apptTime = self.apptTimeOptions[0];
+                    })
             },
             LoadData: function () {
                 try {
@@ -128,7 +154,7 @@
                         });
 
                 } catch (error) {
-                    console.log(error)
+                    console.log(error);
                 }
             }
         },

@@ -8,6 +8,12 @@ namespace Vue2Spa.Models
         [Key] // Tell Dapper that this is the primary key in the DB table
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public int PetId { get; set; }
+
+        public int VetId { get; set; }
+
+        public string StartTime { get; set; }
+
+        public string EndTime { get; set; }
     }
 }
