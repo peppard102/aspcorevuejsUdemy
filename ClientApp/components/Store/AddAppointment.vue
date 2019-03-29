@@ -58,6 +58,8 @@
 
 <script>
     import Datepicker from 'vuejs-datepicker';
+    import axios from 'axios'
+
     export default {
         components: {
             Datepicker
@@ -99,13 +101,14 @@
             },
             LoadData: function () {
                 try {
-                    this.$http.get('/api/pet').then(result => {
-                        this.petsList = result.data.map((item) => ({ value: item.id, text: item.name }));
+                    let self = this;
+                    //this.$http.get('/api/pet').then(result => {
+                    //    this.petsList = result.data.map((item) => ({ value: item.id, text: item.name }));
 
-                        if (this.petsList.Length != 0)
-                            this.form.pet = this.petsList[0].value;
-                        console.log(result);
-                    });
+                    //    if (this.petsList.Length != 0)
+                    //        this.form.pet = this.petsList[0].value;
+                    //    console.log(result);
+                    //});
 
                     this.$http.get('/api/appointment/lengthOptions').then(result => {
                         this.apptLengthOptions = result.data.map((item) => ({ value: item.lengthInMinutes, text: item.lengthInMinutes }));
@@ -115,15 +118,37 @@
                         console.log(result);
                     });
 
-                    this.$http.get('/api/vet').then(result => {
-                        this.vetsList = result.data.map((item) => ({ value: item.id, text: item.name }));
-                        if (this.vetsList.Length != 0)
-                        {
-                            this.form.vet = this.vetsList[0].value;
+                    //this.$http.get('/api/vet').then(result => {
+                    //    this.vetsList = result.data.map((item) => ({ value: item.id, text: item.name }));
+                    //    if (this.vetsList.Length != 0)
+                    //    {
+                    //        this.form.vet = this.vetsList[0].value;
                             
-                            return this.$http.get('/api/appointment/' + this.form.vet)
-                        }
-                    });
+                    //        //return this.$http.get('/api/appointment/' + this.form.vet)
+                    //    }
+                    //});
+
+
+                    function getVets() {
+                        return axios.get('/api/vet')
+                    }
+
+                    function getPets() {
+                        return axios.get('/api/pet');
+                    }
+
+                    axios.all([getPets(), getVets()])
+                        .then(axios.spread(function (petsResult, vetsResult) {
+                            self.petsList = petsResult.data.map((item) => ({ value: item.id, text: item.name }));
+
+                            if (self.petsList.Length != 0)
+                                self.form.pet = self.petsList[0].value;
+
+                            self.vetsList = vetsResult.data.map((item) => ({ value: item.id, text: item.name }));
+                            if (self.vetsList.Length != 0) {
+                                self.form.vet = self.vetsList[0].value;
+                            }
+                        }));
 
                 } catch (error) {
                     console.log(error)
