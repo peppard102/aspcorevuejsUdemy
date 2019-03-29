@@ -21,7 +21,7 @@
                               placeholder="Enter name"></b-form-input>
             </b-form-group>-->
             <b-form-group label="Select a Date:" label-for="apptDate">
-                <Datepicker id="apptDate" :disabledDates="disabledDates"></Datepicker>
+                <Datepicker id="apptDate" :value="form.date" :disabledDates="disabledDates"></Datepicker>
             </b-form-group>
             <b-form-group id="input-group-3" label="Select a pet:" label-for="input-3">
                 <b-form-select class="form-control" id="input-3"
@@ -65,6 +65,7 @@
         data() {
             return {
                 form: {
+                    date: new Date(),
                     pet: null,
                     vet: null,
                     apptLength: null,
