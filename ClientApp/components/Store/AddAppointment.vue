@@ -5,7 +5,7 @@
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
 
             <b-form-group label="Select a Date:" label-for="apptDate">
-                <Datepicker id="apptDate" :value="form.date" :disabledDates="disabledDates" @change="onChange"></Datepicker>
+                <Datepicker id="apptDate" :value="form.date" v-model="form.date" :disabledDates="disabledDates" @change="onChange"></Datepicker>
             </b-form-group>
 
             <b-form-group id="input-group-3" label="Select a pet:" label-for="input-3">
@@ -47,6 +47,7 @@
 <script>
     import Datepicker from 'vuejs-datepicker';
     import axios from 'axios'
+    import moment from 'moment'
 
     export default {
         components: {
@@ -55,7 +56,7 @@
         data() {
             return {
                 form: {
-                    date: new Date(),
+                    date: moment().format('L'),
                     pet: null,
                     vet: null,
                     apptLength: null,
@@ -67,24 +68,39 @@
                 apptLengthOptions: [],
                 apptTimeOptions: [],
                 disabledDates: {
-                    to: new Date(), // Disable all dates up to specific date
-                    days: [6, 0]
+                    to: moment().add(-1, 'd').toDate(), // Disable all dates before today
+                    days: [6, 0] // Disable weekends 
                 }
             }
         },
         methods: {
             onSubmit(evt) {
                 evt.preventDefault()
+                let self = this;
+                let startTime = moment(self.form.date +' '+ self.form.apptTime);
+                let endTime = moment(startTime).add(self.form.apptLength, 'm').toDate();
+                console.log(startTime);
+                console.log(endTime);
+                //console.log(self.form.date);
+                //console.log(self.form.apptTime);
                 //alert(JSON.stringify(this.form))
-                //axios.post('/api/appointment', { PetId: self.form.pet, VetId: self.form.vet, StartTime: self.form.date, lengthOfAppt: self.form.apptLength })
-                //    .then(result => {
-                //        console.log(result);
+                axios.post('/api/appointment', {
+                    PetId: self.form.pet,
+                    VetId: self.form.vet,
+                    StartTime: startTime,
+                    EndTime: endTime,
+                })
+                .then(result => {
+                    return axios.post('/api/appointment/timeOptions', { VetId: self.form.vet, Date: self.form.date, lengthOfAppt: self.form.apptLength });
+                })
+                .then(result => {
+                    console.log(result);
 
-                //        self.apptTimeOptions = result.data;
+                    self.apptTimeOptions = result.data;
 
-                //        if (self.apptTimeOptions.Length != 0)
-                //            self.form.apptTime = self.apptTimeOptions[0];
-                //    })
+                    if (self.apptTimeOptions.Length != 0)
+                        self.form.apptTime = self.apptTimeOptions[0];
+                })
             },
             onReset(evt) {
                 evt.preventDefault()

@@ -49,6 +49,8 @@ namespace Vue2Spa.Controllers
         [HttpPost]
         public Appointment PostAppointment([FromBody]Appointment value)
         {
+            value.StartTime = value.StartTime.ToLocalTime();
+            value.EndTime = value.EndTime.ToLocalTime();
             manager.AddAppointment(value);
             return value;
         }
