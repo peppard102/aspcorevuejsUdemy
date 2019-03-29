@@ -3,23 +3,7 @@
         <h1>Add New Appointment</h1>
         <hr />
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-            <!--<b-form-group id="input-group-1"
-                          label="Email address:"
-                          label-for="input-1"
-                          description="We'll never share your email with anyone else.">
-                <b-form-input id="input-1"
-                              v-model="form.email"
-                              type="email"
-                              required
-                              placeholder="Enter email"></b-form-input>
-            </b-form-group>
 
-            <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
-                <b-form-input id="input-2"
-                              v-model="form.name"
-                              required
-                              placeholder="Enter name"></b-form-input>
-            </b-form-group>-->
             <b-form-group label="Select a Date:" label-for="apptDate">
                 <Datepicker id="apptDate" :value="form.date" :disabledDates="disabledDates"></Datepicker>
             </b-form-group>
@@ -42,13 +26,12 @@
                                :options="this.apptLengthOptions"
                                required></b-form-select>
             </b-form-group>
-
-            <!--<b-form-group id="input-group-4">
-                <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
-                    <b-form-checkbox value="me">Check me out</b-form-checkbox>
-                    <b-form-checkbox value="that">Check that out</b-form-checkbox>
-                </b-form-checkbox-group>
-            </b-form-group>-->
+            <b-form-group id="input-group-3" label="Select a time:" label-for="input-3">
+                <b-form-select class="form-control" id="input-3"
+                               v-model="form.apptTime"
+                               :options="this.apptTimeOptions"
+                               required></b-form-select>
+            </b-form-group>
 
             <b-button type="submit" variant="primary">Submit</b-button>
             <b-button type="reset" variant="danger">Reset</b-button>
@@ -71,11 +54,13 @@
                     pet: null,
                     vet: null,
                     apptLength: null,
+                    apptTime: null,
                 },
                 show: true,
                 petsList: [],
                 vetsList: [],
                 apptLengthOptions: [],
+                apptTimeOptions: [],
                 disabledDates: {
                     to: new Date(), // Disable all dates up to specific date
                     days: [6, 0]
@@ -102,32 +87,6 @@
             LoadData: function () {
                 try {
                     let self = this;
-                    //this.$http.get('/api/pet').then(result => {
-                    //    this.petsList = result.data.map((item) => ({ value: item.id, text: item.name }));
-
-                    //    if (this.petsList.Length != 0)
-                    //        this.form.pet = this.petsList[0].value;
-                    //    console.log(result);
-                    //});
-
-                    this.$http.get('/api/appointment/lengthOptions').then(result => {
-                        this.apptLengthOptions = result.data.map((item) => ({ value: item.lengthInMinutes, text: item.lengthInMinutes }));
-
-                        if (this.apptLengthOptions.Length != 0)
-                            this.form.apptLength = this.apptLengthOptions[0].value;
-                        console.log(result);
-                    });
-
-                    //this.$http.get('/api/vet').then(result => {
-                    //    this.vetsList = result.data.map((item) => ({ value: item.id, text: item.name }));
-                    //    if (this.vetsList.Length != 0)
-                    //    {
-                    //        this.form.vet = this.vetsList[0].value;
-                            
-                    //        //return this.$http.get('/api/appointment/' + this.form.vet)
-                    //    }
-                    //});
-
 
                     function getVets() {
                         return axios.get('/api/vet')
@@ -137,18 +96,36 @@
                         return axios.get('/api/pet');
                     }
 
-                    axios.all([getPets(), getVets()])
-                        .then(axios.spread(function (petsResult, vetsResult) {
-                            self.petsList = petsResult.data.map((item) => ({ value: item.id, text: item.name }));
+                    function getApptLengths() {
+                        return axios.get('/api/appointment/lengthOptions');
 
+                    }
+
+                    axios.all([getPets(), getVets(), getApptLengths()])
+                        .then(axios.spread(function (petsResult, vetsResult, ApptLengthsResult) {
+                            self.petsList = petsResult.data.map((item) => ({ value: item.id, text: item.name }));
+                            self.vetsList = vetsResult.data.map((item) => ({ value: item.id, text: item.name }));
+                            self.apptLengthOptions = ApptLengthsResult.data.map((item) => ({ value: item.lengthInMinutes, text: item.lengthInMinutes }));
+
+                            // Set defaults
                             if (self.petsList.Length != 0)
                                 self.form.pet = self.petsList[0].value;
 
-                            self.vetsList = vetsResult.data.map((item) => ({ value: item.id, text: item.name }));
-                            if (self.vetsList.Length != 0) {
+                            if (self.vetsList.Length != 0) 
                                 self.form.vet = self.vetsList[0].value;
-                            }
-                        }));
+
+                            if (self.apptLengthOptions.Length != 0)
+                                self.form.apptLength = self.apptLengthOptions[0].value;
+
+                            return axios.post('/api/appointment/timeOptions', { VetId: self.form.vet, Date: self.form.date, lengthOfAppt: self.form.apptLength });
+                        })).then(result => {
+                            console.log(result);
+
+                            self.apptTimeOptions = result.data;
+
+                            if (self.apptTimeOptions.Length != 0)
+                                self.form.apptTime = self.apptTimeOptions[0];
+                        });
 
                 } catch (error) {
                     console.log(error)

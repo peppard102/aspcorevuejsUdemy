@@ -36,6 +36,14 @@ namespace Vue2Spa.Controllers
         {
             return manager.GetById(id);
         }
+        
+        // GET: api/Appointment/5
+        [HttpPost]
+        [Route("timeOptions")]
+        public List<TimeSpan> GetAppointmentTimeOptions([FromBody]AppointmentLengthParams apptLengthParams)
+        {
+            return manager.GetAppointmentTimeOptions(apptLengthParams);
+        }
 
         // POST: api/Appointment
         [HttpPost]
