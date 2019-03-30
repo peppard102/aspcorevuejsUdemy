@@ -5,7 +5,7 @@
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
 
             <b-form-group label="Select a Date:" label-for="apptDate">
-                <Datepicker id="apptDate" :value="form.date" v-model="form.date" :disabledDates="disabledDates" @change="onChange"></Datepicker>
+                <Datepicker id="apptDate" :value="form.date" v-model="form.date" :disabledDates="disabledDates" @closed="onChange"></Datepicker>
             </b-form-group>
 
             <b-form-group id="input-group-3" label="Select a pet:" label-for="input-3">
@@ -69,7 +69,8 @@
                 apptTimeOptions: [],
                 disabledDates: {
                     to: moment().add(-1, 'd').toDate(), // Disable all dates before today
-                    days: [6, 0] // Disable weekends 
+                    //days: [6, 0] // Disable weekends 
+                    days: [0] // Disable weekends 
                 }
             }
         },
@@ -77,13 +78,10 @@
             onSubmit(evt) {
                 evt.preventDefault()
                 let self = this;
-                let startTime = moment(self.form.date +' '+ self.form.apptTime);
-                let endTime = moment(startTime).add(self.form.apptLength, 'm').toDate();
-                console.log(startTime);
-                console.log(endTime);
-                //console.log(self.form.date);
-                //console.log(self.form.apptTime);
-                //alert(JSON.stringify(this.form))
+                let selectedDate = moment(self.form.date).format('L') // Get only the date part
+                let startTime = moment(selectedDate + ' ' + self.form.apptTime); // Add the selected time to the selected date
+                let endTime = moment(startTime).add(self.form.apptLength, 'm').toDate(); // Add the appt length to the start time to get the end time
+                
                 axios.post('/api/appointment', {
                     PetId: self.form.pet,
                     VetId: self.form.vet,

@@ -21,6 +21,7 @@ import StoreAdd from 'components/Store/Add'
 import AddPet from 'components/Store/AddPet'
 import AddVet from 'components/Store/AddVet'
 import AddAppointment from 'components/Store/AddAppointment'
+import ViewAppointments from 'components/Store/ViewAppointments'
 import StoreUpdate from 'components/Store/Update'
 import StoreDelete from 'components/Store/Delete'
 import Auth from 'components/Auth/Auth'
@@ -40,6 +41,7 @@ export const routes = [
     { path: '/Store/AddPet', component: AddPet, display: 'Add Pet', style: 'glyphicon glyphicon-duplicate' },
     { path: '/Store/AddVet', component: AddVet, display: 'Add Vet', style: 'glyphicon glyphicon-duplicate' },
     { path: '/Store/AddAppointment', component: AddAppointment, display: 'Add Appointment', style: 'glyphicon glyphicon-duplicate' },
+    { path: '/Store/ViewAppointments', component: ViewAppointments, display: 'View Appointments', style: 'glyphicon glyphicon-duplicate' },
     { path: '/Store/Update', component: StoreUpdate, display: 'Store Update Item', style: 'glyphicon glyphicon-duplicate' },
     { path: '/Store/Delete', component: StoreDelete, display: 'Store Delete Item', style: 'glyphicon glyphicon-duplicate' },
     { path: '/Auth/Auth', component: Auth, display: 'Authentication', style: 'glyphicon glyphicon-duplicate' },
