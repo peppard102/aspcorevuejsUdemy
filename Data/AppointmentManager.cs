@@ -33,6 +33,15 @@ namespace Vue2Spa.Data
             }
         }
 
+        public List<AppointmentGrid> GetAppointmentGrid()
+        {
+            using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection")))
+            {
+                return connection.Query<AppointmentGrid>("up_GetAppointmentGrid",
+                    commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
         public List<AppointmentLengthOptions> GetAllAppointmentLengthOptions()
         {
             using (SqlConnection connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection")))

@@ -24,6 +24,13 @@ namespace Vue2Spa.Controllers
         }
 
         [HttpGet]
+        [Route("GetGrid")]
+        public List<AppointmentGrid> GetAppointmentGrid()
+        {
+            return manager.GetAppointmentGrid();
+        }
+
+        [HttpGet]
         [Route("lengthOptions")]
         public List<AppointmentLengthOptions> GetAllAppointmentLengthOptions()
         {
