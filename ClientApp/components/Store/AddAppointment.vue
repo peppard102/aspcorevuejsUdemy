@@ -2,7 +2,7 @@
     <div>
         <h1>Add New Appointment</h1>
         <hr />
-        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+        <b-form @submit="onSubmit" v-if="show">
 
             <b-form-group label="Select a Date:" label-for="apptDate">
                 <Datepicker id="apptDate" :value="form.date" v-model="form.date" :disabledDates="disabledDates" @closed="onChange"></Datepicker>
@@ -39,7 +39,6 @@
             </b-form-group>
 
             <b-button type="submit" variant="primary">Submit</b-button>
-            <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
     </div>
 </template>
@@ -98,18 +97,6 @@
 
                     if (self.apptTimeOptions.Length != 0)
                         self.form.apptTime = self.apptTimeOptions[0];
-                })
-            },
-            onReset(evt) {
-                evt.preventDefault()
-                // Reset our form values
-                this.form.pet = null
-                this.form.vet = null
-                this.form.checked = []
-                // Trick to reset/clear native browser form validation state
-                this.show = false
-                this.$nextTick(() => {
-                    this.show = true
                 })
             },
             onChange(evt) {

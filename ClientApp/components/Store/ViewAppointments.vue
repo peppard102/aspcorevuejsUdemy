@@ -4,8 +4,8 @@
         <hr />
         <b-table :items="items" :fields="fields" class="my-table-scroll" striped>
             <template slot="actions" slot-scope="data">
-                <b-button size="sm" @click="CancelAppointment(data.item.id)" class="mr-2">
-                    Cancel Appointment
+                <b-button size="sm" @click="deleteClicked(data.item.id)" class="mr-2">
+                    Delete Appointment
                 </b-button>
             </template>
         </b-table>
@@ -29,12 +29,16 @@
             }
         },
         methods: {
-            LoadData: function () {
+            loadData: function () {
                 axios.get('/api/appointment/GetGrid').then((results) => {
                     this.items = results.data;
                 })
             },
-            CancelAppointment: function (id) {
+            deleteClicked: function (id) {
+                if (confirm("Are you sure you would like to delete this appointment?"))
+                    this.deleteAppointment(id);
+            },
+            deleteAppointment: function (id) {
                 axios.delete('/api/appointment/' + id).then((results) => {
                     const index = this.items.findIndex(item => item.id === id) // Find the index of the appointment
                     if (index != -1) // If found
@@ -43,7 +47,7 @@
             },
         },
         created() {
-            this.LoadData();
+            this.loadData();
         }
     }
 </script>
