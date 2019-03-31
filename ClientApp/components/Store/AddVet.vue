@@ -11,7 +11,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="textinput">Name</label>
                     <div class="col-md-4">
-                        <input v-model="Item.Name" placeholder="Mouse, Keyborad, etc." class="form-control input-md" type="text">
+                        <input v-model="Item.Name" placeholder="Please enter the vet's name" class="form-control input-md" type="text">
 
                     </div>
                 </div>

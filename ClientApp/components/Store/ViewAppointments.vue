@@ -16,6 +16,7 @@
 
 <script>
     import axios from 'axios'
+    import moment from 'moment'
 
     export default {
         data() {
@@ -34,8 +35,13 @@
         methods: {
             loadData: function () {
                 axios.get('/api/appointment/GetGrid').then((results) => {
-                    this.items = results.data;
-                })
+                    this.items = results.data.map((item) => {
+                        // Format the start and end times
+                        item.startTime = moment(item.startTime).format("LLL");
+                        item.endTime = moment(item.endTime).format("LLL");
+                        return item;
+                    });
+                });
             },
             deleteClicked: function (id) {
                 if (confirm("Are you sure you would like to delete this appointment?"))
