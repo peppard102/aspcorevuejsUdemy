@@ -74,8 +74,8 @@
                 apptTimeOptions: [],
                 disabledDates: {
                     to: moment().add(-1, 'd').toDate(), // Disable all dates before today
-                    //days: [6, 0] // Disable weekends 
-                    days: [0] // Disable weekends 
+                    days: [6, 0] // Disable weekends 
+                    //days: [0] // Disable weekends 
                 },
                 showAlert: false,
             }
@@ -98,10 +98,11 @@
                     return axios.post('/api/appointment/timeOptions', { VetId: self.form.vet, Date: self.form.date, lengthOfAppt: self.form.apptLength });
                 })
                 .then(result => {
-                    self.apptTimeOptions = result.data;
+                    self.apptTimeOptions = result.data.map((item) => { return { value: item, text: item } });
+                    self.apptTimeOptions.unshift({ value: null, text: 'Please select an option' });
 
                     if (self.apptTimeOptions.Length != 0)
-                        self.form.apptTime = self.apptTimeOptions[0];
+                        self.form.apptTime = self.apptTimeOptions[0].value;
 
                     this.showAlert = true;
 
@@ -114,10 +115,11 @@
                 let self = this;
                 axios.post('/api/appointment/timeOptions', { VetId: self.form.vet, Date: self.form.date, lengthOfAppt: self.form.apptLength })
                     .then(result => {
-                        self.apptTimeOptions = result.data;
+                        self.apptTimeOptions = result.data.map((item) => { return { value: item, text: item } });
+                        self.apptTimeOptions.unshift({ value: null, text: 'Please select an option' });
 
                         if (self.apptTimeOptions.Length != 0)
-                            self.form.apptTime = self.apptTimeOptions[0];
+                            self.form.apptTime = self.apptTimeOptions[0].value;
                     })
             },
             LoadData: function () {
@@ -155,12 +157,11 @@
 
                             return axios.post('/api/appointment/timeOptions', { VetId: self.form.vet, Date: self.form.date, lengthOfAppt: self.form.apptLength });
                         })).then(result => {
-                            console.log(result);
-
-                            self.apptTimeOptions = result.data;
+                            self.apptTimeOptions = result.data.map((item) => { return { value: item, text: item } });
+                            self.apptTimeOptions.unshift({ value: null, text: 'Please select an option' });
 
                             if (self.apptTimeOptions.Length != 0)
-                                self.form.apptTime = self.apptTimeOptions[0];
+                                self.form.apptTime = self.apptTimeOptions[0].value;
                         });
 
                 } catch (error) {
