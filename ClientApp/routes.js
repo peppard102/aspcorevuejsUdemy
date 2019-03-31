@@ -16,14 +16,14 @@ import Custom from 'components/Deep/Custom'
 import Transition from 'components/Deep/Transition'
 import Filters from 'components/Deep/Filters'
 import Vuex from 'components/Deep/Vuex'
-import StoreHome from 'components/Store/Home'
-import StoreAdd from 'components/Store/Add'
-import AddPet from 'components/Store/AddPet'
-import AddVet from 'components/Store/AddVet'
-import AddAppointment from 'components/Store/AddAppointment'
-import ViewAppointments from 'components/Store/ViewAppointments'
-import StoreUpdate from 'components/Store/Update'
-import StoreDelete from 'components/Store/Delete'
+import StoreHome from 'components/PetClinic/Home'
+import StoreAdd from 'components/PetClinic/Add'
+import AddPet from 'components/PetClinic/AddPet'
+import AddVet from 'components/PetClinic/AddVet'
+import AddAppointment from 'components/PetClinic/AddAppointment'
+import ViewAppointments from 'components/PetClinic/ViewAppointments'
+import StoreUpdate from 'components/PetClinic/Update'
+import StoreDelete from 'components/PetClinic/Delete'
 import Auth from 'components/Auth/Auth'
 
 export const routes = [
@@ -36,14 +36,14 @@ export const routes = [
     { path: '/Databinding', component: Databinding, display: 'Databinding', style: 'glyphicon glyphicon-resize-small' },
     { path: '/Methods', component: Methods, display: 'Methods', style: 'glyphicon glyphicon-retweet' },
     { path: '/Models', component: Models, display: 'Models', style: 'glyphicon glyphicon-duplicate' },
-    { path: '/Store/Home', component: StoreHome, display: 'Store Home', style: 'glyphicon glyphicon-duplicate' },
-    { path: '/Store/Add', component: StoreAdd, display: 'Store Add Item', style: 'glyphicon glyphicon-duplicate' },
-    { path: '/Store/AddPet', component: AddPet, display: 'Add Pet', style: 'glyphicon glyphicon-duplicate' },
-    { path: '/Store/AddVet', component: AddVet, display: 'Add Vet', style: 'glyphicon glyphicon-duplicate' },
-    { path: '/Store/AddAppointment', component: AddAppointment, display: 'Add Appointment', style: 'glyphicon glyphicon-duplicate' },
-    { path: '/Store/ViewAppointments', component: ViewAppointments, display: 'View Appointments', style: 'glyphicon glyphicon-duplicate' },
-    { path: '/Store/Update', component: StoreUpdate, display: 'Store Update Item', style: 'glyphicon glyphicon-duplicate' },
-    { path: '/Store/Delete', component: StoreDelete, display: 'Store Delete Item', style: 'glyphicon glyphicon-duplicate' },
+    { path: '/PetClinic/Home', component: StoreHome, display: 'Store Home', style: 'glyphicon glyphicon-duplicate' },
+    { path: '/PetClinic/Add', component: StoreAdd, display: 'Store Add Item', style: 'glyphicon glyphicon-duplicate' },
+    { path: '/PetClinic/AddPet', component: AddPet, display: 'Add Pet', style: 'glyphicon glyphicon-duplicate' },
+    { path: '/PetClinic/AddVet', component: AddVet, display: 'Add Vet', style: 'glyphicon glyphicon-duplicate' },
+    { path: '/PetClinic/AddAppointment', component: AddAppointment, display: 'Add Appointment', style: 'glyphicon glyphicon-duplicate' },
+    { path: '/PetClinic/ViewAppointments', component: ViewAppointments, display: 'View Appointments', style: 'glyphicon glyphicon-duplicate' },
+    { path: '/PetClinic/Update', component: StoreUpdate, display: 'Store Update Item', style: 'glyphicon glyphicon-duplicate' },
+    { path: '/PetClinic/Delete', component: StoreDelete, display: 'Store Delete Item', style: 'glyphicon glyphicon-duplicate' },
     { path: '/Auth/Auth', component: Auth, display: 'Authentication', style: 'glyphicon glyphicon-duplicate' },
     {
         path: '/Routes',
