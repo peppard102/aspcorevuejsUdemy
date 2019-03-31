@@ -55,41 +55,4 @@
     }
 </script>
 <style>
-    /*table.my-table-scroll,
-    table.my-table-scroll > thead,
-    table.my-table-scroll > tbody,
-    table.my-table-scroll > tfoot,
-    table.my-table-scroll > tbody > tr,
-    table.my-table-scroll > thead > tr {
-        width: 100%;
-        display: block;
-    }*/
-
-        /*table.my-table-scroll > thead,
-        table.my-table-scroll > tbody,
-        table.my-table-scroll > tfoot {
-            display: block;
-            width: 100%;
-            overflow-y: scroll;
-        }*/
-
-        /*table.my-table-scroll > thead,
-        table.my-table-scroll > tfoot {
-            height: auto;
-        }
-
-        table.my-table-scroll > tbody {
-            max-height: 135px;
-        }
-
-            table.my-table-scroll > thead > tr > th,
-            table.my-table-scroll > thead > tr > td,
-            table.my-table-scroll > tbody > tr > th,
-            table.my-table-scroll > tbody > tr > td,
-            table.my-table-scroll > tfoot > tr > th,
-            table.my-table-scroll > tfoot > tr > td {
-                display: inline-block;
-                width: 25%;
-            }*/
-
 </style>

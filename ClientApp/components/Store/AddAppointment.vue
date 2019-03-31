@@ -40,6 +40,12 @@
 
             <b-button type="submit" variant="primary">Submit</b-button>
         </b-form>
+        <br />
+        <transition name="fade">
+            <div class="alert alert-success" v-if="showAlert">
+                You have successfully added the appointment!
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -70,7 +76,8 @@
                     to: moment().add(-1, 'd').toDate(), // Disable all dates before today
                     //days: [6, 0] // Disable weekends 
                     days: [0] // Disable weekends 
-                }
+                },
+                showAlert: false,
             }
         },
         methods: {
@@ -91,20 +98,22 @@
                     return axios.post('/api/appointment/timeOptions', { VetId: self.form.vet, Date: self.form.date, lengthOfAppt: self.form.apptLength });
                 })
                 .then(result => {
-                    console.log(result);
-
                     self.apptTimeOptions = result.data;
 
                     if (self.apptTimeOptions.Length != 0)
                         self.form.apptTime = self.apptTimeOptions[0];
+
+                    this.showAlert = true;
+
+                    setTimeout(function () {
+                        self.showAlert = false
+                    }, 3000);
                 })
             },
             onChange(evt) {
                 let self = this;
                 axios.post('/api/appointment/timeOptions', { VetId: self.form.vet, Date: self.form.date, lengthOfAppt: self.form.apptLength })
                     .then(result => {
-                        console.log(result);
-
                         self.apptTimeOptions = result.data;
 
                         if (self.apptTimeOptions.Length != 0)
@@ -157,13 +166,31 @@
                 } catch (error) {
                     console.log(error);
                 }
-            }
+            },
         },
         created() {
             this.LoadData();
-        }
+        },
     }
 </script>
 
 <style>
+    .fade-enter {
+        opacity: 0;
+    }
+
+    .fade-enter-active {
+        transition: opacity 2s;
+    }
+
+    .fade-leave-active {
+        transition: opacity 2s;
+        opacity: 0;
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
 </style>
