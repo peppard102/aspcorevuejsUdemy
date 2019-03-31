@@ -123,6 +123,7 @@
                     })
             },
             LoadData: function () {
+                this.setDefaultDate();
                 try {
                     let self = this;
 
@@ -168,6 +169,16 @@
                     console.log(error);
                 }
             },
+            setDefaultDate: function () {
+                var defaultDate = moment();
+                var day = defaultDate.day();
+                if (day == 0)
+                    defaultDate.add(1, 'd').toDate()
+                else if (day == 6)
+                    defaultDate.add(2, 'd').toDate()
+
+                this.form.date = defaultDate.format('L')
+            }
         },
         created() {
             this.LoadData();
