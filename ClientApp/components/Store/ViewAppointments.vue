@@ -2,9 +2,11 @@
     <div>
         <h1>View Appointments</h1>
         <hr />
-        <b-table :items="items" :fields="fields" class="my-table-scroll" striped>
+        <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+        <br />
+        <b-table :items="items" :fields="fields" :filter="filter" class="my-table-scroll" striped>
             <template slot="actions" slot-scope="data">
-                <b-button size="sm" @click="deleteClicked(data.item.id)" class="mr-2">
+                <b-button size="sm" @click="deleteClicked(data.item.id)">
                     Delete Appointment
                 </b-button>
             </template>
@@ -25,7 +27,8 @@
                     { key: 'endTime', sortable: true },
                     { key: 'actions' },
                 ],
-                items: []
+                items: [],
+                filter: null,
             }
         },
         methods: {
