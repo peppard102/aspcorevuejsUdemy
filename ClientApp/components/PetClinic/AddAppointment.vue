@@ -2,7 +2,7 @@
     <div>
         <h1>Add New Appointment</h1>
         <hr />
-        <b-form @submit="onSubmit" v-if="show">
+        <b-form @submit="onSubmit">
 
             <b-form-group label="Select a Date:" label-for="apptDate">
                 <Datepicker id="apptDate" :value="form.date" v-model="form.date" :disabledDates="disabledDates" @closed="onChange"></Datepicker>
@@ -67,7 +67,6 @@
                     apptLength: null,
                     apptTime: null,
                 },
-                show: true,
                 petsList: [],
                 vetsList: [],
                 apptLengthOptions: [],
@@ -143,7 +142,7 @@
                     axios.all([getPets(), getVets(), getApptLengths()])
                         .then(axios.spread(function (petsResult, vetsResult, ApptLengthsResult) {
                             self.petsList = petsResult.data.map((item) => ({ value: item.id, text: item.name }));
-                            self.vetsList = vetsResult.data.map((item) => ({ value: item.id, text: item.firstName }));
+                            self.vetsList = vetsResult.data.map((item) => ({ value: item.id, text: item.firstName + ' ' + item.lastName }));
                             self.apptLengthOptions = ApptLengthsResult.data.map((item) => ({ value: item.lengthInMinutes, text: item.lengthInMinutes }));
 
                             // Set defaults

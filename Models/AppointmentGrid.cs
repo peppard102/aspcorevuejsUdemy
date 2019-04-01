@@ -5,7 +5,9 @@ namespace Vue2Spa.Models
 {
     public class AppointmentGrid : Appointment
     {
-        public string VetName { get; set; }
+        public string VetFirstName { get; set; }
+
+        public string VetLastName { get; set; }
 
         public string PetName { get; set; }
     }

@@ -22,7 +22,8 @@
         data() {
             return {
                 fields: [
-                    { key: 'vetName', sortable: true },
+                    { key: 'vetFirstName', sortable: true },
+                    { key: 'vetLastName', sortable: true },
                     { key: 'petName', sortable: true },
                     { key: 'startTime', sortable: true },
                     { key: 'endTime', sortable: true },

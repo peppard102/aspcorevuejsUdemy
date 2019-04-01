@@ -1,41 +1,30 @@
 <template>
     <div>
-        <h1>{{msg}}</h1>
-        <div class="form-horizontal">
-            <fieldset>
+        <h1>Add New Vet</h1>
+        <hr />
+        <b-form @submit="onSubmit">
 
-                <!-- Form Name -->
-                <legend>Add New Vet</legend>
+            <b-form-group id="input-group-2" label="First Name:" label-for="input-2">
+                <b-form-input id="input-2"
+                              v-model="Item.firstName"
+                              required
+                              placeholder="Enter first name"></b-form-input>
+            </b-form-group>
+            <b-form-group id="input-group-2" label="Last Name:" label-for="input-2">
+                <b-form-input id="input-2"
+                              v-model="Item.lastName"
+                              required
+                              placeholder="Enter last name"></b-form-input>
+            </b-form-group>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">First Name</label>
-                    <div class="col-md-4">
-                        <input v-model="Item.firstName" placeholder="Please enter the vet's first name" class="form-control input-md" type="text">
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Last Name</label>
-                    <div class="col-md-4">
-                        <input v-model="Item.lastName" placeholder="Please enter the vet's last name" class="form-control input-md" type="text">
-
-                    </div>
-                </div>
-
-                <!-- Button -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for=""></label>
-                    <div class="col-md-4">
-                        <button @click="AddData()" class="btn btn-primary">Add</button>
-                    </div>
-                </div>
-
-
-            </fieldset>
-        </div>
-
-
+            <b-button type="submit" variant="primary">Submit</b-button>
+        </b-form>
+        <br />
+        <transition name="fade">
+            <div class="alert alert-success" v-if="showAlert">
+                You have successfully added the vet!
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -43,16 +32,20 @@
     export default {
         data() {
             return {
-                msg: 'Add Vet',
-                Item: {}
+                Item: {},
+                showAlert: false,
             }
         },
         methods: {
-            AddData: function () {
+            onSubmit: function (evt) {
+                evt.preventDefault()
                 try {
                     this.$http.post('/api/Vet', this.Item).then(result => {
-                        console.log(result);
-                        alert(`Item ${result.data.firstName} has been added successfully`);
+                        this.showAlert = true;
+
+                        setTimeout(function () {
+                            self.showAlert = false;
+                        }, 3000);
                         this.Item = {};
                     });
                     
