@@ -3,7 +3,6 @@
         <h1>Add New Vet</h1>
         <hr />
         <b-form @submit="onSubmit">
-
             <b-form-group id="input-group-2" label="First Name:" label-for="input-2">
                 <b-form-input id="input-2"
                               v-model="Item.firstName"
@@ -39,6 +38,7 @@
         methods: {
             onSubmit: function (evt) {
                 evt.preventDefault()
+
                 try {
                     this.$http.post('/api/Vet', this.Item).then(result => {
                         this.showAlert = true;
@@ -46,9 +46,9 @@
                         setTimeout(function () {
                             self.showAlert = false;
                         }, 3000);
+
                         this.Item = {};
                     });
-                    
                 } catch (error) {
                     console.log(error)
                 }

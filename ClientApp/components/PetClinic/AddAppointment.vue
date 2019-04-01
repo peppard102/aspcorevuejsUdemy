@@ -3,18 +3,15 @@
         <h1>Add New Appointment</h1>
         <hr />
         <b-form @submit="onSubmit">
-
             <b-form-group label="Select a Date:" label-for="apptDate">
                 <Datepicker id="apptDate" :value="form.date" v-model="form.date" :disabledDates="disabledDates" @closed="onChange"></Datepicker>
             </b-form-group>
-
             <b-form-group id="input-group-3" label="Select a pet:" label-for="input-3">
                 <b-form-select class="form-control" id="input-3"
                                v-model="form.pet"
                                :options="this.petsList"
                                required></b-form-select>
             </b-form-group>
-
             <b-form-group id="input-group-3" label="Select a vet:" label-for="input-3">
                 <b-form-select class="form-control" id="input-3"
                                v-model="form.vet"
@@ -22,7 +19,6 @@
                                required
                                @change="onChange"></b-form-select>
             </b-form-group>
-
             <b-form-group id="input-group-3" label="Select an appointment length:" label-for="input-3">
                 <b-form-select class="form-control" id="input-3"
                                v-model="form.apptLength"
@@ -30,14 +26,12 @@
                                required
                                @change="onChange"></b-form-select>
             </b-form-group>
-
             <b-form-group id="input-group-3" label="Select a time:" label-for="input-3">
                 <b-form-select class="form-control" id="input-3"
                                v-model="form.apptTime"
                                :options="this.apptTimeOptions"
                                required></b-form-select>
             </b-form-group>
-
             <b-button type="submit" variant="primary">Submit</b-button>
         </b-form>
         <br />
