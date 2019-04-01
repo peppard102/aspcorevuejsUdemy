@@ -143,7 +143,7 @@
                     axios.all([getPets(), getVets(), getApptLengths()])
                         .then(axios.spread(function (petsResult, vetsResult, ApptLengthsResult) {
                             self.petsList = petsResult.data.map((item) => ({ value: item.id, text: item.name }));
-                            self.vetsList = vetsResult.data.map((item) => ({ value: item.id, text: item.name }));
+                            self.vetsList = vetsResult.data.map((item) => ({ value: item.id, text: item.firstName }));
                             self.apptLengthOptions = ApptLengthsResult.data.map((item) => ({ value: item.lengthInMinutes, text: item.lengthInMinutes }));
 
                             // Set defaults

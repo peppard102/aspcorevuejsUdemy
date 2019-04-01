@@ -9,9 +9,16 @@
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Name</label>
+                    <label class="col-md-4 control-label" for="textinput">First Name</label>
                     <div class="col-md-4">
-                        <input v-model="Item.Name" placeholder="Please enter the vet's name" class="form-control input-md" type="text">
+                        <input v-model="Item.firstName" placeholder="Please enter the vet's first name" class="form-control input-md" type="text">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="textinput">Last Name</label>
+                    <div class="col-md-4">
+                        <input v-model="Item.lastName" placeholder="Please enter the vet's last name" class="form-control input-md" type="text">
 
                     </div>
                 </div>
@@ -45,7 +52,7 @@
                 try {
                     this.$http.post('/api/Vet', this.Item).then(result => {
                         console.log(result);
-                        alert(`Item ${result.data.name} has been added successfully`);
+                        alert(`Item ${result.data.firstName} has been added successfully`);
                         this.Item = {};
                     });
                     
