@@ -25,22 +25,24 @@
     export default {
         data() {
             return {
-                Item: {}
+                Item: {},
+                showAlert: false,
             }
         },
         methods: {
             onSubmit: function (evt) {
                 evt.preventDefault()
+                let self = this;
 
                 try {
-                    this.$http.post('/api/Pet', this.Item).then(result => {
-                        this.showAlert = true;
+                    self.$http.post('/api/Pet', self.Item).then(result => {
+                        self.showAlert = true;
 
                         setTimeout(function () {
                             self.showAlert = false;
                         }, 3000);
 
-                        this.Item = {};
+                        self.Item = {};
                     });
                     
                 } catch (error) {
@@ -52,5 +54,22 @@
 </script>
 
 <style>
+    .fade-enter {
+        opacity: 0;
+    }
 
+    .fade-enter-active {
+        transition: opacity 2s;
+    }
+
+    .fade-leave-active {
+        transition: opacity 2s;
+        opacity: 0;
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
 </style>

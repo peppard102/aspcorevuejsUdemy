@@ -179,7 +179,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .fade-enter {
         opacity: 0;
     }

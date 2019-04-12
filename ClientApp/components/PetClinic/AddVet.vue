@@ -37,17 +37,19 @@
         },
         methods: {
             onSubmit: function (evt) {
+                let self = this;
+
                 evt.preventDefault()
 
                 try {
-                    this.$http.post('/api/Vet', this.Item).then(result => {
-                        this.showAlert = true;
+                    self.$http.post('/api/Vet', self.Item).then(result => {
+                        self.showAlert = true;
 
                         setTimeout(function () {
                             self.showAlert = false;
                         }, 3000);
 
-                        this.Item = {};
+                        self.Item = {};
                     });
                 } catch (error) {
                     console.log(error)
@@ -57,6 +59,23 @@
     }
 </script>
 
-<style>
+<style scoped>
+    .fade-enter {
+        opacity: 0;
+    }
 
+    .fade-enter-active {
+        transition: opacity 2s;
+    }
+
+    .fade-leave-active {
+        transition: opacity 2s;
+        opacity: 0;
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
 </style>
