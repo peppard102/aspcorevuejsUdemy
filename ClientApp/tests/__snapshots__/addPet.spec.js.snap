@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddPet.vue renders correctly 1`] = `
+<div>
+  <h1>
+    Add New Pet
+  </h1>
+   
+  <hr />
+   
+  <form
+    class=""
+  >
+    <div
+      class="form-group"
+      id="input-group-2"
+      role="group"
+    >
+      <label
+        class="d-block"
+        for="input-2"
+        id="input-group-2__BV_label_"
+      >
+        Name:
+      </label>
+      <div>
+        <input
+          aria-required="true"
+          class="form-control"
+          id="input-2"
+          placeholder="Enter the pet's name"
+          required="required"
+          type="text"
+        />
+        <!---->
+        <!---->
+        <!---->
+      </div>
+    </div>
+     
+    <button
+      class="btn btn-primary"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+   
+  <br />
+   
+  <!---->
+</div>
+`;
