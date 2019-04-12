@@ -8,7 +8,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                <a class="navbar-brand" href="/">Vue2Spa</a>
+                <a class="navbar-brand" href="/">Pet Clinic</a>
             </div>
             <div class="clearfix"></div>
             <transition name="slide">
